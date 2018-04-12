@@ -6,10 +6,8 @@ import SimpleMFRC522
 reader = SimpleMFRC522.SimpleMFRC522()
 
 def readTag():
-        try:
-#                id, tagId = reader.read()
-#                print (id)
-#                print (tagId)
-                print "howdy"
-        finally:
-                GPIO.cleanup()
+        id, tagId = reader.read()
+        print (id)
+        print (tagId)
+        print "howdy"
+
