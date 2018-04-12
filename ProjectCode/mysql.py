@@ -6,9 +6,9 @@ from unidecode import unidecode
 
 def connect():
     # Mysql connection setup. Insert your values here
-    return MySQLdb.connect(host="localhost", user="pi", passwd="raspberry", db="pi")
+    return MySQLdb.connect(host="localhost", user="neal", passwd="password", db="seniordesign")
 
-def insertReading(tagId,action):
+def doorOpen(tagId):
     db = connect()
     cur = db.cursor()
     currentTime=strftime("%Y%m%d%H%M%S", localtime())

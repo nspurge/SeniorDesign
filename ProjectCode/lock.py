@@ -4,16 +4,16 @@ import RPi.GPIO as GPIO
 from time import sleep
 
 #Set GPIO Board numbering scheme
-GPIO.setmode(GPIO.BOARD)
+#GPIO.setmode(GPIO.BOARD)
 
 #Set GPIO pin
-GPIO.setup(12, GPIO.OUT)
+#GPIO.setup(12, GPIO.OUT)
 #Set pwm signal on pin to 50Hz
-pwm = GPIO.PWM(12, 50)
-pwm.start(0) #set duty cycle to 0 so it doesn't cycle on startup
+#pwm = GPIO.PWM(12, 50)
+#pwm.start(0) #set duty cycle to 0 so it doesn't cycle on startup
 
 #function to set duty cycle as an angle
-def setAngle:
+def setAngle():
 	duty = angle / 18 + 2
 	GPIO.output(12, True)
 	pwm.ChangeDutyCycle(duty)
@@ -22,15 +22,15 @@ def setAngle:
 	pwm.ChangeDutyCycle(0)
 
 #set function to open lock	
-def openLock:
+def openLock():
 	print "opening lock"
-	setAngle(90)
-	pwm.stop()
-	GPIO.cleanup()
+#	setAngle(90)
+#	pwm.stop()
+#	GPIO.cleanup()
 
 #set function to close lock
-def closeLock:
+def closeLock():
 	print "closing lock"
-	setAngle(0)
-	pwm.stop()
-	GPIO.cleanup()
+#	setAngle(0)
+#	pwm.stop()
+#	GPIO.cleanup()
