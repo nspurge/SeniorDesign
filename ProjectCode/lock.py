@@ -19,20 +19,28 @@ def setAngle(angle):
 	duty = angle / 18 + 2
 	GPIO.output(servoPin, True)
 	pwm.ChangeDutyCycle(duty)
-	sleep(1)
+	sleep(.01)
 	GPIO.output(servoPin, False)
 	pwm.ChangeDutyCycle(0)
 
 #set function to open lock	
 def openLock():
-	print "opening lock"
 	angle = 90
 	setAngle(angle)
 	pwm.stop()
+	print 'lock opened'
 
 #set function to close lock
 def closeLock():
-	print "closing lock"
 	angle = 0
 	setAngle(angle)
 	pwm.stop()
+	print 'lock closed'
+
+def lockTest():
+        angle = 30
+        setAngle(angle)
+        pwm.stop()
+        print 'test complete'
+
+lockTest()
