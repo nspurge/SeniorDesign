@@ -6,11 +6,8 @@ import SimpleMFRC522
 reader = SimpleMFRC522.SimpleMFRC522()
 
 def readTag():
-        print 'run'
         id, tagId = reader.read()
-        print 'done'
+        print tagId
         return (tagId)
-        print (tagId)
 
 readTag()
-

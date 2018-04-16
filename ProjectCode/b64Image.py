@@ -8,8 +8,9 @@ def base64Image():
         filename = '/home/pi/Desktop/SeniorDesign/ProjectCode/Images/' + datetime.datetime.now().strftime("%Y-%m-%d-%H.%M.%S.jpg")
         
         cam = picamera.PiCamera()
+        cam.resolution = (640, 480)
         cam.capture(filename)
-        time.sleep(1)
+        time.sleep(.5)
 
         image = open(filename, 'rb')
         image_read = image.read()

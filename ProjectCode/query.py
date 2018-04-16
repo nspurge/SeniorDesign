@@ -2,26 +2,24 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-import read
 import b64Image
-
-#tagId = read.readTag()
-tagId = '123456789'
 
 #filename = '/home/pi/Desktop/SeniorDesign/ProjectCode/Images/' + datetime.now().strftime("%Y-%m-%d-%H.%M.%S.jpg")
 image = b64Image.base64Image()
 
-##hostname = '71.66.232.181'
-##username = 'jarvis'
-##password = 'ironmanrules'
-##database = 'seniordesign'
-
-hostname = 'localhost'
-username = 'neal'
-password = 'password'
+hostname = '71.66.232.181'
+username = 'jarvis'
+password = 'ironmanrules'
 database = 'seniordesign'
 
-def userSearch():
+##hostname = 'localhost'
+##username = 'neal'
+##password = 'password'
+##database = 'seniordesign'
+
+#tagId = '123456789'
+
+def userSearch(tagId):
     import MySQLdb
     myConnection = MySQLdb.connect( host=hostname, user=username, passwd=password, db=database )
     
@@ -38,13 +36,13 @@ def userSearch():
     myConnection.close()
 
     if(count == 1):
-        return count
         print (count)
+        return count
     else:
-        return 0
         print 'nothing'
-
-def doorOpen() :
+        return 0
+        
+def doorOpen(tagId) :
     import MySQLdb
     myConnection = MySQLdb.connect( host=hostname, user=username, passwd=password, db=database )
 
@@ -56,16 +54,13 @@ def doorOpen() :
            " VALUES (%s, %s, %s, %s)")
 
     sql_data = (tagId, timestamp, 'Door Unlocked', image)
-
-#    print (sql)
-#    print (sql_data)
   
     cur.execute(sql, sql_data)
     myConnection.commit()
 
     myConnection.close()
 
-def doorClose() :
+def doorClose(tagId) :
     import MySQLdb
     myConnection = MySQLdb.connect( host=hostname, user=username, passwd=password, db=database )
 
@@ -76,15 +71,27 @@ def doorClose() :
     sql = ("INSERT INTO Log (Rfid_Id, TimeStamp, EventDescription, EventImage)"
            " VALUES (%s, %s, %s, %s)")
 
-    sql_data = (tagId, timestamp, 'Door Locked', image )
+    sql_data = (tagId, timestamp, 'Door Locked', image)
 
-#    print (sql)
-#    print (sql_data)
-    
     cur.execute(sql, sql_data)
     myConnection.commit()
 
     myConnection.close()
 
+def doNothing(tagId) :
+    import MySQLdb
+    myConnection = MySQLdb.connect( host=hostname, user=username, passwd=password, db=database )
 
+    cur = myConnection.cursor()
 
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    sql = ("INSERT INTO Log (Rfid_Id, TimeStamp, EventDescription, EventImage)"
+           " VALUES (%s, %s, %s, %s)")
+
+    sql_data = (tagId, timestamp, 'Unauthorized Access Attempt', image)
+    
+    cur.execute(sql, sql_data)
+    myConnection.commit()
+
+    myConnection.close()

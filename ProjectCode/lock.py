@@ -7,40 +7,33 @@ from time import sleep
 GPIO.setmode(GPIO.BCM)
 
 #Set GPIO pin
-servoPin = 14
+servoPin = 18
 GPIO.setup(servoPin, GPIO.OUT)
+
 #Set pwm signal on pin to 50Hz
 pwm = GPIO.PWM(servoPin, 50)
 pwm.start(0) #set duty cycle to 0 so it doesn't cycle on startup
 
 #function to set duty cycle as an angle
 def setAngle(angle):
-#        GPIO.setmode(GPIO.BOARD)
-	duty = angle / 18 + 2
-	GPIO.output(servoPin, True)
-	pwm.ChangeDutyCycle(duty)
-	sleep(.01)
-	GPIO.output(servoPin, False)
-	pwm.ChangeDutyCycle(0)
+#        GPIO.setmode(GPIO.BCM)
+        duty = angle / 18 + 2
+        GPIO.output(servoPin, True)
+        pwm.ChangeDutyCycle(duty)
+        sleep(.5)
+        GPIO.output(servoPin, False)
+        pwm.ChangeDutyCycle(0)
 
-#set function to open lock	
+#set function to open lock      
 def openLock():
-	angle = 90
-	setAngle(angle)
-	pwm.stop()
-	print 'lock opened'
+        angle = 90
+        setAngle(angle)
+        pwm.stop()
+        print 'lock opened'
 
 #set function to close lock
 def closeLock():
-	angle = 0
-	setAngle(angle)
-	pwm.stop()
-	print 'lock closed'
-
-def lockTest():
-        angle = 30
+        angle = 0
         setAngle(angle)
         pwm.stop()
-        print 'test complete'
-
-lockTest()
+        print 'lock closed'
