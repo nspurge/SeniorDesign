@@ -6,6 +6,7 @@ from time import sleep
 import read
 import lock
 import query
+import led
 import SimpleMFRC522
 import os
 
@@ -16,20 +17,26 @@ def main():
 
     if (count == 1):
         if (os.path.isfile('/home/pi/Desktop/SeniorDesign/ProjectCode/closed.txt')):
-            print '4'
             query.doorOpen(tagId)
+            led.blinkGreen()
+            sleep(.2)
             lock.openLock()
-            GPIO.cleanup()
             os.rename('/home/pi/Desktop/SeniorDesign/ProjectCode/closed.txt', '/home/pi/Desktop/SeniorDesign/ProjectCode/opened.txt')
+            led.greenOn()
+            sleep(1.5)
         elif (os.path.isfile('/home/pi/Desktop/SeniorDesign/ProjectCode/opened.txt')):
-            print '5'
             query.doorClose(tagId)
+            led.blinkGreen()
+            sleep(.2)
             lock.closeLock()
-            GPIO.cleanup()
             os.rename('/home/pi/Desktop/SeniorDesign/ProjectCode/opened.txt', '/home/pi/Desktop/SeniorDesign/ProjectCode/closed.txt')
+            led.greenOff()
+            sleep(1.5)
     else:
         query.doNothing(tagId)
-        print 'Blink Red LED '
+        led.blinkRed()
+        sleep(1.5)
         pass
 
-main()
+while True:
+    main()

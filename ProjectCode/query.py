@@ -4,7 +4,6 @@
 from datetime import datetime
 import b64Image
 
-#filename = '/home/pi/Desktop/SeniorDesign/ProjectCode/Images/' + datetime.now().strftime("%Y-%m-%d-%H.%M.%S.jpg")
 image = b64Image.base64Image()
 
 hostname = '71.66.232.181'
@@ -25,7 +24,7 @@ def userSearch(tagId):
     
     cur = myConnection.cursor()
 
-    sql = ("SELECT * FROM Users WHERE Rfid_Id = %s")
+    sql = ("SELECT * FROM Users WHERE Rfid_Id = %s AND Deactivate = False")
     sql_data = (tagId)
 
     cur.execute(sql, sql_data)

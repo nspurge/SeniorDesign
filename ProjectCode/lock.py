@@ -16,7 +16,9 @@ pwm.start(0) #set duty cycle to 0 so it doesn't cycle on startup
 
 #function to set duty cycle as an angle
 def setAngle(angle):
-#        GPIO.setmode(GPIO.BCM)
+        servoPin = 18
+        GPIO.setup(servoPin, GPIO.OUT)
+
         duty = angle / 18 + 2
         GPIO.output(servoPin, True)
         pwm.ChangeDutyCycle(duty)
@@ -26,6 +28,9 @@ def setAngle(angle):
 
 #set function to open lock      
 def openLock():
+        pwm = GPIO.PWM(servoPin, 50)
+        pwm.start(0)
+        
         angle = 90
         setAngle(angle)
         pwm.stop()
@@ -33,6 +38,9 @@ def openLock():
 
 #set function to close lock
 def closeLock():
+        pwm = GPIO.PWM(servoPin, 50)
+        pwm.start(0)
+
         angle = 0
         setAngle(angle)
         pwm.stop()
